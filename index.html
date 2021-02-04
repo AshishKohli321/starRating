@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Start Rating</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+		box-sizing:border-box;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	h1{text-transform: uppercase; ;padding: 15px 0; position: absolute; left: 50%; transform: translateX(-50%);color: #fff;}
+	.star-rating{
+		width: 100%;
+		height: 100vh;
+		display:flex;
+		flex-direction:column;
+		justify-content:center;
+		align-items: center;
+		background-image:linear-gradient(#12c2e9,#c471ed,#f64f59);
+	}
+	.stars{
+		width: 400px;
+		height: 100px;
+		display: flex;
+		justify-content:center;
+		align-items:center;
+	}
+	.stars .star{
+		list-style: none;font-size: 3rem;padding-left: 20px;color: #fff;}
+	.stars .star:first-child{
+		padding-left: 0;
+	}
+	img{box-shadow: 8px 14px 44px 11px rgba(0,0,0,0.79);}
+	.output{width: 400px;height: 50px;line-height: 50px;text-align: center;background: #00b894;font-size: 1.2rem; color: #fff;box-shadow: 8px 14px 25px 10px rgba(0,0,0,0.79);}
+	.next{
+		width: 100px;height: 40px;line-height: 40px;text-align: center;background: #00b894;font-size: 1.2rem;outline: none;border: none;color: #fff;}
+		.next:hover{
+			color: #00b894;
+			background: #fff;
+			cursor: pointer;
+		}
+		.orange{
+			color: orange;
+		}
+</style>
+<body>
+<h1>Rate your favourite picture</h1>
+<div class="star-rating">
+ <img src="https://picsum.photos/400/300/?random"/>
+
+ <ul class="stars">
+ 	<li class="star"><i class="fa fa-star"></i></li>
+ 	<li class="star"><i class="fa fa-star"></i></li>
+ 	<li class="star"><i class="fa fa-star"></i></li>
+ 	<li class="star"><i class="fa fa-star"></i></li>
+ 	<li class="star"><i class="fa fa-star"></i></li>
+ </ul>
+ <p class="output">Rating</p><br>
+ <button class="next" onclick="nextPicture()">Next</button>
+</div>
+
+
+<script type="text/javascript">
+	const stars = document.querySelectorAll('.star');
+	const output = document.querySelector('.output');
+	
+	for(i=0; i<stars.length;i++){
+		stars[i].starValue = (i+1);
+		// stars[i].addEventListener('click',function(){
+		// console.log('you are clicked');
+		// });
+
+		['click','mouseover','mouseout'].forEach(function(e){
+			stars[i].addEventListener(e,ShowRating);
+		});
+	}
+
+	function ShowRating(e){
+		let type = e.type;
+		// console.log(type);
+		let starValue = this.starValue;
+		// console.log(starValue);
+		if(type === 'click'){
+				if(starValue > 1){
+					output.innerHTML='You rated this ' + starValue + ' Stars';
+				}
+			}
+		stars.forEach(function(elem,index){
+			if(type === 'click'){
+				if(index<starValue){
+					elem.style.color="orange";
+				}else{
+					elem.style.color="white";
+				}
+			}
+			if(type === 'mouseover'){
+				if(index<starValue){
+					elem.style.color="yellow";
+				}else{
+					elem.style.color="white";
+				}
+			}
+			if(type === 'mouseout'){
+					elem.style.color="white";
+			}
+		});
+
+	}
+	
+function nextPicture(){
+	window.location.reload();
+}
+</script>
+</body>
+</html>
